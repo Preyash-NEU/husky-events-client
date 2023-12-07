@@ -43,10 +43,13 @@ const BookingCard = ({ currentEvent, fetchEvent }) => {
     }
 
     try {
-      const response = await axios.put("http://localhost:8000/event/register", {
-        eventID: currentEvent._id,
-        userID: user._id,
-      });
+      const response = await axios.put(
+        process.env.REACT_APP_BASE_BACKEND_URL + "/event/register",
+        {
+          eventID: currentEvent._id,
+          userID: user._id,
+        },
+      );
 
       if (response.status === 201) {
         setSuccess(true);

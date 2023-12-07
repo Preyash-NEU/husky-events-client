@@ -36,8 +36,8 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/user/login",
-        formData
+        process.env.REACT_APP_BASE_BACKEND_URL + "/user/login",
+        formData,
       );
       localStorage.setItem("token", res?.data?.details?.token);
 
@@ -71,8 +71,7 @@ export default function Login() {
       <div
         id="SigninRoot"
         onClick={updateModals}
-        className="bg-[#f8f8fa] flex justify-between container h-screen overflow-auto mx-auto my-5 w-full"
-      >
+        className="bg-[#f8f8fa] flex justify-between container h-screen overflow-auto mx-auto my-5 w-full">
         {error && <Modal title="Error" message={showMessage} />}
         {success && <Modal title="Success" message={showMessage} />}
         <div className="flex lg:flex-1 px-8 py-5 flex-col gap-24 w-full justify-center">
@@ -101,8 +100,7 @@ export default function Login() {
               <PrimaryButton
                 id="sign_in"
                 buttonWidth={"w-1/2"}
-                onClick={handleLogin}
-              >
+                onClick={handleLogin}>
                 Sign In
               </PrimaryButton>
             </div>
@@ -110,8 +108,7 @@ export default function Login() {
         </div>
         <div
           id="UnsplashEVgsAbLRk"
-          className="hidden lg:flex bg-[url(https://file.rendit.io/n/rxcirV5nTS5Vr5ZqlkUR.png)] bg-cover h-full w-full flex-1"
-        >
+          className="hidden lg:flex bg-[url(https://file.rendit.io/n/rxcirV5nTS5Vr5ZqlkUR.png)] bg-cover h-full w-full flex-1">
           <div className="flex bg-gray-600/60 flex-col gap-10 justify-center w-full h-full items-center">
             <div className="text-center text-4xl font-bold text-white">
               Hey there Husky,

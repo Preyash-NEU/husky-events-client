@@ -16,7 +16,9 @@ const Events = () => {
 
   const fetchEvents = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:8000/event/events");
+    const response = await axios.get(
+      process.env.REACT_APP_BASE_BACKEND_URL + "/event/events",
+    );
     const data = await response.data;
     setEvents(data);
     setFilteredEvents(data);
