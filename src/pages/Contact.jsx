@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import DefaultLayout from "../components/Layout/DefaultLayout";
 import { AuthContext } from "../context/authContext";
+import Modal from "../components/Modals/Modal";
 
 const Contact = () => {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,10 @@ const Contact = () => {
   const [emailId, setEmailId] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+
+  const [showMessage, setShowMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const saveContact = async (e) => {
     e.preventDefault();
@@ -26,11 +31,10 @@ const Contact = () => {
     try {
       const response = await axios.post(
         `http://localhost:8000/contact/save`,
-        data
+        data,
       );
 
       if (response.status === 204) {
-        console.log(response);
         setShowMessage("Please give valid details");
         setError(true);
         return;
@@ -59,12 +63,20 @@ const Contact = () => {
     setMessage("");
   };
 
+  const updateModals = () => {
+    setSuccess(false);
+    setError(false);
+  };
+
   return (
     <DefaultLayout>
+      {error && <Modal message={showMessage} error={error} />}
+      {success && <Modal message={showMessage} success={success} />}
+
       <div
+        onClick={updateModals}
         id="contact"
-        className="lg:w-full p-4 py-16 text-center mt-7 border-b shadow-2xl shadow-gray-600 rounded-lg"
-      >
+        className="lg:w-full p-4 py-16 text-center mt-7 border-b shadow-2xl shadow-gray-600 rounded-lg">
         <h2 className="text-5xl font-semibold mb-4 text-gray-800">
           NEED HELP? JUST SEND US A MESSAGE
         </h2>
@@ -113,13 +125,11 @@ const Contact = () => {
               placeholder="Your Message"
               rows="5"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
+              onChange={(e) => setMessage(e.target.value)}></textarea>
             <button
               className="m-2 px-8 py-3 rounded-md bg-primary text-white mt-5 mb-5 text-xl"
               type="submit"
-              onClick={saveContact}
-            >
+              onClick={saveContact}>
               Submit
             </button>
           </div>
@@ -140,8 +150,7 @@ const Contact = () => {
             Telephone:{" "}
             <a
               href="tel:+16173732000"
-              className="text-blue-500 hover:underline"
-            >
+              className="text-blue-500 hover:underline">
               +1 (617) 373-2000
             </a>
           </p>
@@ -149,8 +158,7 @@ const Contact = () => {
             Phone:{" "}
             <a
               href="tel:+16173732001"
-              className="text-blue-500 hover:underline"
-            >
+              className="text-blue-500 hover:underline">
               +1 (617) 373-2001
             </a>
           </p>
@@ -158,8 +166,7 @@ const Contact = () => {
             Mobile:{" "}
             <a
               href="tel:+16173732002"
-              className="text-blue-500 hover:underline"
-            >
+              className="text-blue-500 hover:underline">
               +1 (617) 373-2002
             </a>
           </p>
@@ -171,8 +178,7 @@ const Contact = () => {
             Email:{" "}
             <a
               href="mailto:huskyevents@northeastern.edu"
-              className="text-blue-500 hover:underline"
-            >
+              className="text-blue-500 hover:underline">
               huskyevents@northeastern.edu
             </a>
           </p>
@@ -180,8 +186,7 @@ const Contact = () => {
             Website:{" "}
             <a
               href="https://www.northeastern.edu"
-              className="text-blue-500 hover:underline"
-            >
+              className="text-blue-500 hover:underline">
               https://www.northeastern.edu/
             </a>
           </p>
