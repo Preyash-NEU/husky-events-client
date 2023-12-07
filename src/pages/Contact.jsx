@@ -47,11 +47,16 @@ const Contact = () => {
       await response.data;
       clearFields();
       setSuccess(true);
-      setShowMessage("Query saved successfully");
+      setShowMessage("Message Sent Successfully! We will get back to you soon!");
     } catch (err) {
       console.log(err);
       setShowMessage(err.message);
       setError(true);
+    }finally{
+      setTimeout(() => {
+        setSuccess(false);
+        setError(false);
+      }, 2000);
     }
   };
 
@@ -70,8 +75,8 @@ const Contact = () => {
 
   return (
     <DefaultLayout>
-      {error && <Modal message={showMessage} error={error} />}
-      {success && <Modal message={showMessage} success={success} />}
+      {error && <Modal message={showMessage} title={"Oops"} />}
+      {success && <Modal message={showMessage} title={"Thank You"} />}
 
       <div
         onClick={updateModals}
