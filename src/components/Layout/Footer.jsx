@@ -15,7 +15,7 @@ const Footer = () => {
             Home
           </Link>
           <Link to="/create-event" className="text-base">
-            Create-Event
+            Events
           </Link>
           <Link to="/about" className="text-base">  {/* This is the link onClick for about page */}
             About
