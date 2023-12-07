@@ -139,7 +139,7 @@ const Profile = () => {
                 <div>Loading...</div>
               ) : (
                 registeredEvents.map((event) => (
-                  <div className="w-full lg:w-1/4">
+                  <div className="w-full lg:w-1/3">
                     <EventCard key={event.id} event={event} />
                   </div>
                 ))
@@ -160,7 +160,7 @@ const Profile = () => {
                 <div>Loading...</div>
               ) : (
                 createdEvents.map((event) => (
-                  <div className="w-1/4">
+                  <div className="w-full lg:w-1/3">
                     <EventCard key={event.id} event={event} />
                   </div>
                 ))
