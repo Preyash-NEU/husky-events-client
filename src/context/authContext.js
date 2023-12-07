@@ -6,7 +6,9 @@ const fetchUser = async (token) => {
   console.log("Hello    fetchUser   token:", token);
 
   try {
-    const res = await axios.get(`http://localhost:8000/user/getUser/${token}`);
+    const res = await axios.get(
+      process.env.REACT_APP_BASE_BACKEND_URL + `/user/getUser/${token}`,
+    );
     return res.data;
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -97,15 +99,15 @@ export const AuthContextProvider = ({ children }) => {
         refreshUser: async () => {
           try {
             const res = await axios.get(
-              `http://localhost:8000/user/get/${state?.user?._id}`
+              process.env.REACT_APP_BASE_BACKEND_URL +
+                `/user/get/${state?.user?._id}`,
             );
             dispatch({ type: "UPDATE_USER", payload: res.data });
           } catch (error) {
             console.error("Error refreshing user:", error);
           }
         },
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );

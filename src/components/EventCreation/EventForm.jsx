@@ -66,7 +66,7 @@ const EventForm = () => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:8000/event/create`,
+        process.env.REACT_APP_BASE_BACKEND_URL + `/event/create`,
         data,
       );
 

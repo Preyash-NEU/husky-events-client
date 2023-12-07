@@ -26,17 +26,19 @@ const Profile = () => {
         // fetch from multiple endpoints
 
         const response = await axios.get(
-          `http://localhost:8000/event/getregisteredevents?userID=${user._id}`
+          process.env.REACT_APP_BASE_BACKEND_URL +
+            `/event/getregisteredevents?userID=${user._id}`,
         );
         const createdEventsResponse = await axios.get(
-          `http://localhost:8000/event/getcreatedevents?userID=${user._id}`
+          process.env.REACT_APP_BASE_BACKEND_URL +
+            `/event/getcreatedevents?userID=${user._id}`,
         );
 
         const data = await response.data;
         const filteredData = data.filter((event) => event !== null);
         const createdEventsData = await createdEventsResponse.data;
         const filteredCreatedEventsData = createdEventsData.filter(
-          (event) => event !== null
+          (event) => event !== null,
         );
 
         setRegisteredEvents(filteredData);
@@ -87,15 +89,13 @@ const Profile = () => {
             <label
               htmlFor="profileImage"
               className="cursor-pointer bg-blue-500 text-white rounded-full p-1.5 mt-14"
-              onClick={handleEditClick}
-            >
+              onClick={handleEditClick}>
               <IoPencilOutline />
             </label>
             {editMode && (
               <button
                 className="ml-2 bg-green-500 text-white rounded-full p-2 mt-14"
-                onClick={handleSaveClick}
-              >
+                onClick={handleSaveClick}>
                 Save
               </button>
             )}
