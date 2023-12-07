@@ -41,13 +41,16 @@ export default function Signup() {
 
       performAllValidation(formData);
 
-      const response = await fetch( process.env.REACT_APP_BASE_BACKEND_URL + "/user/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        process.env.REACT_APP_BASE_BACKEND_URL + "/user/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       const data = await response.json();
 
@@ -63,7 +66,7 @@ export default function Signup() {
       } else {
         setError(true);
         setShowMessage(
-          "Signup failed. Please check your information and try again."
+          "Signup failed. Please check your information and try again.",
         );
         console.error(`Error: ${data.message}`);
         // Handle error, show message to the user, etc.
@@ -73,20 +76,17 @@ export default function Signup() {
       setShowMessage("An unexpected error occurred. Please try again later.");
       console.error("Error:", error);
       // Handle network errors or other exceptions
+    } finally {
+      setTimeout(() => {
+        setError(false);
+        setSuccess(false);
+      }, 2000);
     }
-  };
-
-  const updateModals = () => {
-    setError(false);
-    setSuccess(false);
   };
 
   return (
     <DefaultLayout>
-      <div
-        onClick={updateModals}
-        className="container my-5 mx-auto flex h-screen w-full items-start"
-      >
+      <div className="container my-5 mx-auto flex h-screen w-full items-start">
         {error && <Modal title="Error" message={showMessage} />}
         {success && <Modal title="Success" message={showMessage} />}
         <div className="lg:flex hidden bg-[url(https://images.unsplash.com/photo-1517456793572-1d8efd6dc135?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover flex-1 h-full overflow-auto w-full items-start">
@@ -157,8 +157,7 @@ export default function Signup() {
               <PrimaryButton
                 id="sign_up"
                 buttonWidth={"w-1/2"}
-                onClick={handleSignup}
-              >
+                onClick={handleSignup}>
                 Sign Up
               </PrimaryButton>
             </div>
